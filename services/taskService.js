@@ -56,6 +56,21 @@ const getTaskResult = (req, res) => {
     res.json({ taskId, result: tasks[taskId].result });
 };
 
+const cancelTask = (req, res) => {
+    const { taskId } = req.params;
+
+    if (!tasks[taskId]) {
+        return res.status(404).json({ error: 'Task not found' });
+    }
+
+    if (tasks[taskId].status === 'completed') {
+        return res.status(400).json({ message: 'Task already completed, cannot be cancelled' });
+    }
+
+    tasks[taskId].status = 'cancelled';
+    res.json({ taskId, status: tasks[taskId].status });
+};
+
 module.exports = {
     submitTask,
     getTaskStatus,

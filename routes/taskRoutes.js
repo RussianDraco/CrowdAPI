@@ -7,11 +7,15 @@ const { submitTask, getTaskStatus, getTaskResult } = require('../services/taskSe
 router.post('/submit', submitTask);
 
 // task status
-// example: curl http://localhost:3000/tasks/7be6e971-cc8d-47ed-a876-6523691dfd63/status
+// example: curl http://localhost:3000/tasks/TASK_ID/status
 router.get('/:taskId/status', getTaskStatus);
 
 // task result
-// example: curl http://localhost:3000/tasks/7be6e971-cc8d-47ed-a876-6523691dfd63/result
+// example: curl http://localhost:3000/tasks/TASK_ID/result
 router.get('/:taskId/result', getTaskResult);
+
+// cancel task
+// example: curl -X POST http://localhost:3000/tasks/TASK_ID/cancel
+router.post('/:taskId/cancel', cancelTask);
 
 module.exports = router;
