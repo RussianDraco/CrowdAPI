@@ -5,8 +5,12 @@ const tasks = {}; // task storing object
 const submitTask = (req, res) => {
     const { task_name, code, input_data } = req.body;
 
-    if (!task_name || !code || !input_data) {
-        return res.status(400).json({ error: 'Missing required parameters: task_name, code, or input_data' });
+    if (!task_name) {
+        return res.status(400).json({ error: 'Invalid task_name' });
+    } else if (!code) {
+        return res.status(400).json({ error: 'Invalid code' });
+    } else if (!input_data) {
+        return res.status(400).json({ error: 'Invalid input_data' });
     }
 
     const taskId = uuidv4();
