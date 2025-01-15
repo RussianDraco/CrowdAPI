@@ -42,7 +42,22 @@ const getTaskStatus = (req, res) => {
     res.json({ taskId, status: tasks[taskId].status });
 };
 
+const getTaskResult = (req, res) => {
+    const { taskId } = req.params;
+
+    if (!tasks[taskId]) {
+        return res.status(404).json({ error: 'Task not found' });
+    }
+
+    if (tasks[taskId].status !== 'completed') {
+        return res.status(202).json({ message: 'Task is still in progress' });
+    }
+
+    res.json({ taskId, result: tasks[taskId].result });
+};
+
 module.exports = {
     submitTask,
     getTaskStatus,
+    getTaskResult,
 };
