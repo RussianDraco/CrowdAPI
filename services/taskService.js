@@ -32,6 +32,17 @@ const submitTask = (req, res) => {
     res.status(201).json({ taskId, status: tasks[taskId].status });
 };
 
+const getTaskStatus = (req, res) => {
+    const { taskId } = req.params;
+
+    if (!tasks[taskId]) {
+        return res.status(404).json({ error: 'Task not found' });
+    }
+
+    res.json({ taskId, status: tasks[taskId].status });
+};
+
 module.exports = {
-    submitTask
+    submitTask,
+    getTaskStatus,
 };
