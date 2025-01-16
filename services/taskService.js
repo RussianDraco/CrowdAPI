@@ -49,11 +49,11 @@ const getTaskResult = (req, res) => {
         return res.status(404).json({ error: 'Task not found' });
     }
 
-    if (tasks[taskId].status !== 'completed') {
-        return res.status(202).json({ message: 'Task is still in progress' });
+    if (tasks[taskId].status === 'completed') {
+        return res.status(202).json({ message: 'Task has been completed!' });
+    } else {
+        return res.status(202).json({ message: 'Task status: ' + tasks[taskId].status });
     }
-
-    res.json({ taskId, result: tasks[taskId].result });
 };
 
 const cancelTask = (req, res) => {
@@ -71,8 +71,14 @@ const cancelTask = (req, res) => {
     res.json({ taskId, status: tasks[taskId].status });
 };
 
+const currentTasks = () => {
+    return tasks;
+};
+
 module.exports = {
     submitTask,
     getTaskStatus,
     getTaskResult,
+    cancelTask,
+    currentTasks,
 };
